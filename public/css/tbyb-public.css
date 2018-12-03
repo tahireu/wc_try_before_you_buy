@@ -1,0 +1,125 @@
+@import url("../../global.css");
+
+
+.tbyb-returned {
+    color: #FF0000;
+}
+
+
+/* CART - radio buttons button style */
+.woocommerce-cart-form .product-remove .tbyb-return-options {
+    list-style-type: none;
+    margin: 5px 0 0 0;
+    float: left;
+    padding: 10px;
+}
+
+.woocommerce-cart-form .product-remove .tbyb-return-options li {
+    float: left;
+    margin: 0 2px 5px 2px;
+    width: 105px;
+    height: 30px;
+    position: relative;
+}
+
+.woocommerce-cart-form .product-remove .tbyb-return-options label,
+.woocommerce-cart-form .product-remove .tbyb-return-options input,
+.woocommerce-cart-form .product-remove .tbyb-return-options .tbyb-return-reasons-button {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+.woocommerce-cart-form .product-remove .tbyb-return-options input[type="radio"] {
+    opacity: 0.01;
+    z-index: 10;
+}
+
+
+
+.woocommerce-cart-form .product-remove .tbyb-return-options .checked,
+.woocommerce-cart-form .product-remove .tbyb-return-options .checked:hover {
+    background: green;
+    border: 1px solid green;
+    color: #fff;
+}
+
+
+.woocommerce-cart-form .product-remove .tbyb-return-options label,
+.woocommerce-cart-form .product-remove .tbyb-return-options .tbyb-return-reasons-button {
+    padding: 5px;
+    border: 1px solid #CCC;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.woocommerce-cart-form .product-remove .tbyb-return-options label {
+    margin: 0;
+}
+
+.woocommerce-cart-form .product-remove .tbyb-return-options label:hover {
+    background:#DDD;
+}
+
+
+
+/* Cart page RETURN options and elements behavior */
+.tbyb-return-options-holder,
+ul.woocommerce-mini-cart li.woocommerce-mini-cart-item.mini_cart_item ul.tbyb-return-options-holder {
+    display: none !important; /* hide return options in all places except Cart page */
+}
+.woocommerce-cart .tbyb-return-options-holder {
+    display: block !important; /* show return options on Cart page */
+    float: left;
+}
+
+.tbyb-return-options-holder .tbyb-return-reasons {
+    display: none;
+    border: 1px solid lightgray;
+}
+
+.tbyb-return-options-holder.visible .tbyb-return-reasons {
+    display: block;
+}
+
+.tbyb-submit-return-reason {
+    display: none;
+}
+
+
+
+/* CART - additional adjustments */
+.woocommerce-cart-form .product-quantity input[type=number] {
+    -moz-appearance: textfield;
+    pointer-events: none;
+    border: none;
+    box-shadow: none;
+    font-weight: 700;
+}
+
+.woocommerce-cart-form .product-remove input[type=radio] {
+    width: 0;
+    height: 0;
+}
+
+.woocommerce-cart-form table.shop_table .product-remove {
+    line-height: 19px;
+}
+
+.woocommerce-cart-form .product-remove ul,
+.woocommerce-cart-form .product-remove li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.tbyb-why-didnt-you {
+    float: left;
+    width: 100%;
+    padding: 0 2px 2px 2px;
+}

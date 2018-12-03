@@ -1,0 +1,72 @@
+/* Global styles, used by both public and admin classes */
+
+
+/* Error & success messages */
+.tbyb-message {
+    margin: 20px 0 0;
+    padding: 15px;
+    border-radius: 2px;
+}
+
+.tbyb-message a {
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+}
+
+.tbyb-message-success {
+    border-color: #d6e9c6;
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
+.tbyb-message-error {
+    border-color: #FFE0DE;
+    color: #FC0000;
+    background-color: #FFE0DE;
+}
+
+
+
+/* Loading overlay */
+.tbyb-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    opacity: 0.5;
+}
+
+.tbyb-loader-image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #96588a;
+    border-radius: 50%;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    animation: spin 1s ease-in-out infinite;
+    opacity: 1 !important;
+}
+
+.tbyb-loader-image .tbyb-loader-image-inner {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.tbyb-loader-image .tbyb-loader-image-inner:after {
+    position: absolute;
+    content: '';
+    background-color: #fff;
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 50%;
+}
