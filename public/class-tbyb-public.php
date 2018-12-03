@@ -392,11 +392,24 @@ if ( !class_exists( 'TBYB_public' ) ) {
          * */
         public static function redirect_users_not_logged_in() {
 
-            if ( ! is_user_logged_in() && ( is_woocommerce() || is_cart() || is_checkout() ) ) {
 
-                auth_redirect();
+            if ( ! is_user_logged_in() ) {
+
+                if (( is_woocommerce() || is_cart() || is_checkout() ) ) {
+
+                    auth_redirect();
+
+                    exit;
+                }
+
+            } else if ( is_woocommerce() && ! is_cart()) {
+
+                $cart_url = wc_get_cart_url();
+
+                wp_redirect($cart_url);
 
                 exit;
+
             }
         }
 
