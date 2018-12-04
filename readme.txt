@@ -44,6 +44,14 @@ Keep in mind this and MVP version of this software, supporting only basic functi
 5. On 'WooCommerce > WC Try Before You Buy Overview' page, you will be able to see the status of items prepared to be added to customer's cart and delete items added by mistake
 6. On 'Cart' page, your customers will be able to choose between 'keep' and 'return' product, and to give information about eventual 'return reason'
 
+== Screenshots ==
+
+1. Admin side - WC Try Before You Buy Admin meta box on the bottom of each WooCommerce Product page in WP admin area.
+2. Admin side - WC Try Before You Buy Overview page.
+3. Customer side - Cart page with options to keep or return product, and to give feedback about return reason.
+4. Customer side - Return reasons info will be displayed in Cart, Checkout, Email and Order complete pages.
+5. Admin side - Return reasons will be visible to admin in 'Orders > Order' page.
+
 == Known Issues ==
 
 * Plugin is not compatible with 'Enable stock management at product level' WooCommerce option
