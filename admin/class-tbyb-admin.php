@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 
 /**
- * WC Try Before You Buy Prepared Carts class
+ * WC Try Before You Buy Admin class
  */
 if ( !class_exists( 'TBYB_admin' ) ) {
 
@@ -39,16 +39,16 @@ if ( !class_exists( 'TBYB_admin' ) ) {
             add_action('wp_ajax_get_listing_names', array(__CLASS__, 'suggest_users'));
 
             /* Add product to database table from which items are added to cart on user login */
-            add_action('wp_ajax_prepare_products', array(__CLASS__, 'prepare_for_cart'));
+            add_action('wp_ajax_prepare_product', array(__CLASS__, 'prepare_for_cart'));
 
-            /* Prepared cart overview admin page */
-            add_action('admin_menu', array(__CLASS__, 'prepared_carts_overview_page'));
+            /* TBYB Overview admin page */
+            add_action('admin_menu', array(__CLASS__, 'tbyb_overview_page'));
 
-            /* AJAX delete item from prepared carts from Prepared Carts Overview page */
-            add_action('wp_ajax_delete_item', array(__CLASS__, 'delete_single_prepared_item'));
+            /* AJAX delete item from TBYB Overview page */
+            add_action('wp_ajax_delete_item', array(__CLASS__, 'delete_single_item'));
 
-            /* AJAX clear all items from prepared carts for selected user */
-            add_action('wp_ajax_clear_user_items', array(__CLASS__, 'delete_all_prepared_item_for_user'));
+            /* AJAX clear all items from TBYB Overview page for selected user */
+            add_action('wp_ajax_clear_user_items', array(__CLASS__, 'delete_all_item_for_user'));
 
         }
 
@@ -116,7 +116,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
             <div class='tbyb-title-and-description'>
                 <h1>" . __('Add this product to your customer\'s cart', TBYB_TEXT_DOMAIN) . "</h1>
                 <span class='howto'>" . __('When selected user/customer logs in, products added here will appear in his shopping cart. 
-                This way, you can prepare customer\'s cart for him - fill it with items you think that suits him best. ', TBYB_TEXT_DOMAIN) . "</span>
+                This way, you can prepare customer\'s cart content for him - fill it with items you think that suits him best. ', TBYB_TEXT_DOMAIN) . "</span>
             </div>
 
             <!-- TBYB form fields -->
@@ -125,9 +125,9 @@ if ( !class_exists( 'TBYB_admin' ) ) {
                 <input  type='number' name='quantity' id='quantity' placeholder='" . __('Quantity', TBYB_TEXT_DOMAIN) . "' form=" . self::FORM_ID . " />
                 <select type='text' name='variations' title='Variations' form=" . self::FORM_ID . "> " . self::render_dropdown_options() . "</select>" . "
                 <input  type='hidden' name='product_id' value=" . wc_get_product()->get_id() . " form=" . self::FORM_ID . " />
-                <!-- Value in field below must correspond with wp_ajax_prepare_products action (without wp_ajax_ prefix) -->
-                <input  type='hidden' name='action' value='prepare_products' form=" . self::FORM_ID . " />
-                <button type='submit' name='submit' class='button tbyb-prepare-cart-submit button-primary' form=" . self::FORM_ID . ">" . __('Add to customer\'s cart', TBYB_TEXT_DOMAIN) . "</button>
+                <!-- Value property in the field below must correspond with wp_ajax_prepare_product action (without wp_ajax_ prefix) -->
+                <input  type='hidden' name='action' value='prepare_product' form=" . self::FORM_ID . " />
+                <button type='submit' name='submit' class='button tbyb-prepare-product-submit button-primary' form=" . self::FORM_ID . ">" . __('Add to customer\'s cart', TBYB_TEXT_DOMAIN) . "</button>
             </div>
             
             <!-- AJAX Feedback container -->
@@ -247,7 +247,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
                 /* Check price and stock status for simple products */
                 if ($variation_id == '') {
                     if ($price == '') {
-                        $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Cart could not be updated.', TBYB_TEXT_DOMAIN) . "<b>" . __(' Items without price', TBYB_TEXT_DOMAIN) . "</b>" . __(' cannot be added to prepared carts.', TBYB_TEXT_DOMAIN) . "</div>";
+                        $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Cart could not be updated.', TBYB_TEXT_DOMAIN) . "<b>" . __(' Items without price', TBYB_TEXT_DOMAIN) . "</b>" . __(' cannot be added to cart.', TBYB_TEXT_DOMAIN) . "</div>";
                     }
                     if($stock_status !== 'instock') {
                         $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Cart could not be updated. Item is currently', TBYB_TEXT_DOMAIN) . "<b>" . __(' out of stock.', TBYB_TEXT_DOMAIN) . "</b></div>";
@@ -256,7 +256,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
                 /* Check price and stock status for variable products */
                 } else {
                     if ($variation_price == '') {
-                        $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Cart could not be updated.', TBYB_TEXT_DOMAIN) . "<b>" . __(' Items without price', TBYB_TEXT_DOMAIN) . "</b>" . __(' cannot be added to prepared carts.', TBYB_TEXT_DOMAIN) . "</div>";
+                        $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Cart could not be updated.', TBYB_TEXT_DOMAIN) . "<b>" . __(' Items without price', TBYB_TEXT_DOMAIN) . "</b>" . __(' cannot be added to cart.', TBYB_TEXT_DOMAIN) . "</div>";
                     }
                     if($variation_stock_status !== 'instock') {
                         $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Cart could not be updated. Item is currently', TBYB_TEXT_DOMAIN) . "<b>" . __(' out of stock.', TBYB_TEXT_DOMAIN) . "</b></div>";
@@ -275,7 +275,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
 
             /* Execute if $error_string is empty */
             if ($error_string == '') {
-                $query = "INSERT INTO {$wpdb->prefix}tbyb_prepared_carts (";
+                $query = "INSERT INTO {$wpdb->prefix}tbyb_prepared_items (";
                 $query .= "user_id, quantity, product_id, variation_id";
                 $query .= ") values ('";
                 $query .= $user_id[0]->ID . "', '";
@@ -289,7 +289,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
                     $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Could not connect: ', TBYB_TEXT_DOMAIN) . $wpdb->last_error . "</div>";
                     echo $error_string;
                 } else {
-                    echo "<div class='tbyb-message tbyb-message-success'>" . $user_name . __(' cart is updated. ', TBYB_TEXT_DOMAIN) . "<a href='" . admin_url( 'admin.php?page=wc-try-before-you-buy-overview') . "' target='_blank'>" . __('View all prepared carts.', TBYB_TEXT_DOMAIN) . "</a></div>";
+                    echo "<div class='tbyb-message tbyb-message-success'>" . $user_name . __(' cart will be updated after he logs in. ', TBYB_TEXT_DOMAIN) . "<a href='" . admin_url( 'admin.php?page=wc-try-before-you-buy-overview') . "' target='_blank'>" . __('View all prepared items.', TBYB_TEXT_DOMAIN) . "</a></div>";
                 }
             } else {
                 echo $error_string;
@@ -301,47 +301,47 @@ if ( !class_exists( 'TBYB_admin' ) ) {
 
 
         /*
-         * Add Prepared Carts Overview admin page
+         * Add TBYB Overview admin page
          * */
-        public static function prepared_carts_overview_page() {
+        public static function tbyb_overview_page() {
             add_submenu_page(
                 'woocommerce',
                 __('WC Try Before You Buy Overview', TBYB_TEXT_DOMAIN),
                 __('WC Try Before You Buy Overview', TBYB_TEXT_DOMAIN),
                 'manage_options',
                 'wc-try-before-you-buy-overview', // search whole plugin code for usage before eventual edit
-                array( __CLASS__, 'prepared_carts_overview_page_callback' )
+                array( __CLASS__, 'tbyb_overview_page_callback' )
             );
         }
 
 
 
         /*
-         * Render Prepared Carts Overview page content
+         * Render TBYB Overview page content
          * */
-        public static function prepared_carts_overview_page_callback() {
+        public static function tbyb_overview_page_callback() {
             global $wpdb;
 
             echo "
             <div class='wrap'>
             
                 <h2>" . __('WC Try Before You Buy Overview', TBYB_TEXT_DOMAIN) . "</h2>
-                <div class='tbyb-prepared-carts-overview-holder'>
-                    <div class='tbyb-prepared-carts-overview-info howto'>
+                <div class='tbyb-overview-holder'>
+                    <div class='tbyb-overview-info howto'>
                         <span>" . __('These items will be added to user\'s cart when he logs in.', TBYB_TEXT_DOMAIN) . "
                         " . __('After user place order, content will be moved from here to', TBYB_TEXT_DOMAIN) . "
                         <a href='" . admin_url( 'edit.php?post_type=shop_order') . "' target='_blank'>
                         <b>" . __('Orders page', TBYB_TEXT_DOMAIN) . "</b></a>" . __(', along with eventual returns and return reasons information.', TBYB_TEXT_DOMAIN) . "</span>
                     </div>
-                    <div class='tbyb-prepared-carts-overview-toggle-visibility'>
+                    <div class='tbyb-overview-toggle-visibility'>
                         <button id='expand-all' class='button-primary button'>" . __('Expand All', TBYB_TEXT_DOMAIN) . "</button>
                         <button id='collapse-all' class='button-primary button'>" . __('Collapse All', TBYB_TEXT_DOMAIN) . "</button>
                     </div>
                 </div>
-                <div id='tbyb-prepared-carts-overview-feedback'></div>";
+                <div id='tbyb-overview-feedback'></div>";
 
 
-                $query = "SELECT DISTINCT user_id FROM {$wpdb->prefix}tbyb_prepared_carts";
+                $query = "SELECT DISTINCT user_id FROM {$wpdb->prefix}tbyb_prepared_items";
                 $user_ids = $wpdb->get_results($query);
 
 
@@ -358,7 +358,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
                                       variation_id,
                                       imported_to_cart,
                                       SUM(quantity) qntty 
-                              FROM {$wpdb->prefix}tbyb_prepared_carts 
+                              FROM {$wpdb->prefix}tbyb_prepared_items 
                               WHERE user_id = $id 
                               GROUP BY id";
 
@@ -366,7 +366,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
 
 
                     echo "
-                    <table id='tbyb-table-user-id-" . $id . "' class='tbyb-prepared-carts-overview-table widefat fixed striped'>
+                    <table id='tbyb-table-user-id-" . $id . "' class='tbyb-overview-table widefat fixed striped'>
                     
                         <caption>
                             <span>" . $user->display_name . "</span>
@@ -418,7 +418,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
                 } else {
                     echo "<br /><br /><h3>" . __('There is nothing here. Check ', TBYB_TEXT_DOMAIN) . "
                     <a href='" . admin_url( 'edit.php?post_type=shop_order') . "' target='_blank'><b>" . __('Orders page', TBYB_TEXT_DOMAIN) . "</b></a>" .
-                        __(' to see if some of yours previous prepared carts were processed, or add new products to users prepared carts.', TBYB_TEXT_DOMAIN) . "</h3>";
+                        __(' to see if some of yours previously added products were processed, or add new products to users carts.', TBYB_TEXT_DOMAIN) . "</h3>";
                 }
             echo "</div>";
 
@@ -427,13 +427,13 @@ if ( !class_exists( 'TBYB_admin' ) ) {
 
 
         /*
-         * Delete from Prepared Carts Overview page
+         * Delete from TBYB Overview page
          * */
-        public static function delete_prepared_item($table_column, $post_value) {
+        public static function delete_prepared($table_column, $post_value) {
 
             global $wpdb;
 
-            $query = "DELETE FROM {$wpdb->prefix}tbyb_prepared_carts WHERE $table_column = $post_value";
+            $query = "DELETE FROM {$wpdb->prefix}tbyb_prepared_items WHERE $table_column = $post_value";
             $wpdb->get_results($query);
 
             wp_die();
@@ -442,19 +442,19 @@ if ( !class_exists( 'TBYB_admin' ) ) {
 
 
         /*
-        * Delete single item from Prepared Carts Overview page
+        * Delete single item from TBYB Overview page
         * */
-        public static function delete_single_prepared_item() {
-            self::delete_prepared_item('id', $_POST['item']);
+        public static function delete_single_item() {
+            self::delete_prepared('id', $_POST['item']);
         }
 
 
 
         /*
-        * Delete all items per user from Prepared Carts Overview page
+        * Delete all items per user from TBYB Overview page
         * */
-        public static function delete_all_prepared_item_for_user() {
-            self::delete_prepared_item('user_id', $_POST['user_id']);
+        public static function delete_all_item_for_user() {
+            self::delete_prepared('user_id', $_POST['user_id']);
         }
 
     }

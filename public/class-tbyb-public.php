@@ -8,7 +8,7 @@ session_start();
 
 
 /**
- * WC Try Before You Buy Return Options class
+ * WC Try Before You Buy Public class
  */
 if ( !class_exists( 'TBYB_public' ) ) {
 
@@ -336,14 +336,14 @@ if ( !class_exists( 'TBYB_public' ) ) {
                     return;
                 }
 
-                $query = "SELECT * FROM {$wpdb->prefix}tbyb_prepared_carts WHERE user_id = '$current_user->id' AND imported_to_cart = '0'";
+                $query = "SELECT * FROM {$wpdb->prefix}tbyb_prepared_items WHERE user_id = '$current_user->id' AND imported_to_cart = '0'";
                 $results = $wpdb->get_results($query);
 
 
                 if (isset($results)) {
                     foreach ($results as $result) {
                         $woocommerce->cart->add_to_cart($result->product_id, $result->quantity, $result->variation_id);
-                        $query = "UPDATE {$wpdb->prefix}tbyb_prepared_carts SET imported_to_cart = '1' WHERE product_id = '$result->product_id' AND user_id = '$current_user->id'";
+                        $query = "UPDATE {$wpdb->prefix}tbyb_prepared_items SET imported_to_cart = '1' WHERE product_id = '$result->product_id' AND user_id = '$current_user->id'";
                         $wpdb->get_results($query);
                     }
                 }
@@ -364,7 +364,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
                 return;
             }
 
-            $query = "DELETE FROM {$wpdb->prefix}tbyb_prepared_carts WHERE imported_to_cart = '1' AND user_id = '$current_user->id'";
+            $query = "DELETE FROM {$wpdb->prefix}tbyb_prepared_items WHERE imported_to_cart = '1' AND user_id = '$current_user->id'";
             $wpdb->get_results($query);
         }
 

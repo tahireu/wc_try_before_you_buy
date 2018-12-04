@@ -22,7 +22,7 @@ if ( !class_exists( 'TBYB_activator' ) ) {
         public static function create_table() {
 
             global $wpdb;
-            $table_name = $wpdb->prefix . 'tbyb_prepared_carts';
+            $table_name = $wpdb->prefix . 'tbyb_prepared_items';
             $charset_collate = $wpdb->get_charset_collate();
 
             $query = "CREATE TABLE $table_name (

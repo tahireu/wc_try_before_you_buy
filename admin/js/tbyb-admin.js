@@ -75,7 +75,7 @@ jQuery(document).ready(function() {
     }
 
 
-    /* Load only on Prepared Carts Overview page */
+    /* Load only on TBYB Overview page */
     if (jQuery("body.woocommerce_page_wc-try-before-you-buy-overview").length > 0) {
 
         /*
@@ -99,10 +99,10 @@ jQuery(document).ready(function() {
 
                     /* If it's last item, remove whole table */
                     if (tbody.find('tr').length == 0) {
-                        tbody.closest('.tbyb-prepared-carts-overview-table').remove();
+                        tbody.closest('.tbyb-overview-table').remove();
                     }
 
-                    jQuery(" #tbyb-prepared-carts-overview-feedback ").html( "<div class='tbyb-message tbyb-message-success'>Item successfully deleted.</div>" );
+                    jQuery(" #tbyb-overview-feedback ").html( "<div class='tbyb-message tbyb-message-success'>Item successfully deleted.</div>" );
                 })
 
                 .fail(function (error) {
@@ -131,7 +131,7 @@ jQuery(document).ready(function() {
 
                 .done(function () {
                     jQuery("#tbyb-table-user-id-" + toBeDeleted).remove();
-                    jQuery(" #tbyb-prepared-carts-overview-feedback ").html( "<div class='tbyb-message tbyb-message-success'>All items for selected user successfully removed.</div>" );
+                    jQuery(" #tbyb-overview-feedback ").html( "<div class='tbyb-message tbyb-message-success'>All items for selected user successfully removed.</div>" );
                 })
 
                 .fail(function (error) {
@@ -143,21 +143,21 @@ jQuery(document).ready(function() {
 
 
         /*
-        * Toggle prepared carts visibility
+        * Toggle prepared items visibility
         * */
         /* Single user items visibility */
-        jQuery('.tbyb-prepared-carts-overview-table caption span').on('click', function(){
-            jQuery(this).closest('.tbyb-prepared-carts-overview-table').toggleClass('close');
+        jQuery('.tbyb-overview-table caption span').on('click', function(){
+            jQuery(this).closest('.tbyb-overview-table').toggleClass('close');
         });
 
         /* Expand all */
-        jQuery('.tbyb-prepared-carts-overview-toggle-visibility #expand-all').on('click', function(){
-            jQuery('.tbyb-prepared-carts-overview-table').removeClass('close');
+        jQuery('.tbyb-overview-toggle-visibility #expand-all').on('click', function(){
+            jQuery('.tbyb-overview-table').removeClass('close');
         });
 
         /* Collapse all */
-        jQuery('.tbyb-prepared-carts-overview-toggle-visibility #collapse-all').on('click', function(){
-            jQuery('.tbyb-prepared-carts-overview-table').addClass('close');
+        jQuery('.tbyb-overview-toggle-visibility #collapse-all').on('click', function(){
+            jQuery('.tbyb-overview-table').addClass('close');
         });
     }
 

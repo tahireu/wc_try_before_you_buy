@@ -6,7 +6,7 @@
 }
 
 
-.tbyb-prepared-carts-overview-table .tbyb-already-in-cart {
+.tbyb-overview-table .tbyb-already-in-cart {
     color: #FF0000;
 }
 
@@ -52,36 +52,36 @@
 
 
 
-/* Prepared carts overview admin page */
-.tbyb-prepared-carts-overview-holder {
+/* TBYB Overview admin page */
+.tbyb-overview-holder {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.tbyb-prepared-carts-overview-toggle-visibility {
+.tbyb-overview-toggle-visibility {
     padding-left: 40px;
     min-width: 200px;
 }
 
 
-.tbyb-prepared-carts-overview-table {
+.tbyb-overview-table {
     margin-top: 10px;
 }
 
-.tbyb-prepared-carts-overview-table caption {
+.tbyb-overview-table caption {
     text-align: left;
     padding: 8px 10px;
 }
 
-.tbyb-prepared-carts-overview-table caption span {
+.tbyb-overview-table caption span {
     position: relative;
     padding-right: 30px;
     cursor: pointer;
     font-weight: 700;
 }
 
-.tbyb-prepared-carts-overview-table caption span:after {
+.tbyb-overview-table caption span:after {
     display: inline-block;
     font-family: "dashicons";
     content: "\f347";
@@ -92,18 +92,18 @@
     right: 5px;
 }
 
-.tbyb-prepared-carts-overview-table.close caption span:after {
+.tbyb-overview-table.close caption span:after {
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 
-.tbyb-prepared-carts-overview-table.close thead,
-.tbyb-prepared-carts-overview-table.close tbody {
+.tbyb-overview-table.close thead,
+.tbyb-overview-table.close tbody {
    display: none;
 }
 
 
-.tbyb-prepared-carts-overview-table #the-list > tr td:first-child {
+.tbyb-overview-table #the-list > tr td:first-child {
     white-space: nowrap
 }
 
@@ -131,13 +131,13 @@
     }
 
 
-    .tbyb-prepared-carts-overview-holder {
+    .tbyb-overview-holder {
         display: block;
         justify-content: initial;
         align-items: initial;
     }
 
-    .tbyb-prepared-carts-overview-toggle-visibility {
+    .tbyb-overview-toggle-visibility {
         padding-left: 0;
         padding-top: 20px;
     }
