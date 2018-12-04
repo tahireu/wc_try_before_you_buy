@@ -289,7 +289,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
                     $error_string .= "<div class='tbyb-message tbyb-message-error'>" . __('Could not connect: ', TBYB_TEXT_DOMAIN) . $wpdb->last_error . "</div>";
                     echo $error_string;
                 } else {
-                    echo "<div class='tbyb-message tbyb-message-success'>" . $user_name . __(' cart will be updated after he logs in. ', TBYB_TEXT_DOMAIN) . "<a href='" . admin_url( 'admin.php?page=wc-try-before-you-buy-overview') . "' target='_blank'>" . __('View all prepared items.', TBYB_TEXT_DOMAIN) . "</a></div>";
+                    echo "<div class='tbyb-message tbyb-message-success'>" . $user_name . __(' cart will be updated on login. ', TBYB_TEXT_DOMAIN) . "<a href='" . admin_url( 'admin.php?page=wc-try-before-you-buy-overview') . "' target='_blank'>" . __('View all prepared items.', TBYB_TEXT_DOMAIN) . "</a></div>";
                 }
             } else {
                 echo $error_string;
