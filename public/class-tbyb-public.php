@@ -155,10 +155,10 @@ if ( !class_exists( 'TBYB_public' ) ) {
                             <input type='radio' name='" . $parsed . "' id='reason-" . $parsed . "-2' " . $Unselected . " value='Unselected' form=" . self::FORM_ID . " >
                             <label for='reason-" . $parsed . "-2' class='" . $Unselected . "'>" . __('Return', TBYB_TEXT_DOMAIN) . "</label>
                         </li>
-                        <li>
+                        <!--<li>
                             <input  type='radio' name='" . $parsed . "' id='reason-" . $parsed . "-3' value='Exchange' form=" . self::FORM_ID . " disabled >
                             <label for='reason-" . $parsed . "-3'>" . __('Exchange', TBYB_TEXT_DOMAIN) . "</label>
-                        </li>
+                        </li>-->
                     </ul>
                 </li>
                 
