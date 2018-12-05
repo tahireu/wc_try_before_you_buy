@@ -4,8 +4,8 @@ Tags: woocommerce, webshop, shop, e-shop, web-shop, extension, try-before-you-bu
 Requires at least: 3.1.0
 Tested up to: 4.9.8
 Stable tag: 1.0.0
-License: GPL
-License URI: http://www.opensource.org/licenses/gpl-license.php
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WooCommerce support for "Try Before You Buy" type of online stores - Prepare cart content for your customers from admin side and allow them to choose whether they will keep or return the product.
 
