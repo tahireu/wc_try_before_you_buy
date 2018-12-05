@@ -19,7 +19,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
 
 
 
-        public static function on_load()
+        public static function tbyb_on_load()
         {
             add_action('plugins_loaded', array(__CLASS__, 'init'));
         }
@@ -29,43 +29,43 @@ if ( !class_exists( 'TBYB_public' ) ) {
         public static function init()
         {
             /* Load scripts */
-            add_action('wp_enqueue_scripts', array(__CLASS__, 'load_scripts'));
+            add_action('wp_enqueue_scripts', array(__CLASS__, 'tbyb_load_scripts'));
 
             /* Render return reasons form outside the main form */
-            add_filter('wp_footer', array(__CLASS__, 'render_return_reasons_form'));
+            add_filter('wp_footer', array(__CLASS__, 'tbyb_render_return_reasons_form'));
 
             /* Display return reasons select buttons if RETURN is selected */
-            add_filter('woocommerce_cart_item_remove_link', array(__CLASS__, 'display_return_reasons_select_box'));
+            add_filter('woocommerce_cart_item_remove_link', array(__CLASS__, 'tbyb_display_return_reasons_select_box'));
 
             /* AJAX catch, process and return form POST data */
-            add_action('wp_ajax_return_reason', array(__CLASS__, 'select_return_reason'));
+            add_action('wp_ajax_return_reason', array(__CLASS__, 'tbyb_select_return_reason'));
 
             /* Add data processed in previous step to cart item meta data */
-            add_filter('woocommerce_get_cart_item_from_session', array(__CLASS__, 'update_cart_items_data'), 10, 3);
+            add_filter('woocommerce_get_cart_item_from_session', array(__CLASS__, 'tbyb_update_cart_items_data'), 10, 3);
 
             /* Display updated cart items meta data on cart and checkout page */
-            add_filter('woocommerce_get_item_data', array(__CLASS__, 'display_updated_cart_items_data'), 10, 2);
+            add_filter('woocommerce_get_item_data', array(__CLASS__, 'tbyb_display_updated_cart_items_data'), 10, 2);
 
             /* Set price to be 0 for returned items */
-            add_filter('woocommerce_before_calculate_totals', array(__CLASS__, 'add_custom_price'));
+            add_filter('woocommerce_before_calculate_totals', array(__CLASS__, 'tbyb_add_custom_price'));
 
             /* Set returned items price to 0 in mini cart */
-            add_filter('woocommerce_cart_item_price', array(__CLASS__, 'add_custom_price_mini_cart'), 10, 3 );
+            add_filter('woocommerce_cart_item_price', array(__CLASS__, 'tbyb_add_custom_price_mini_cart'), 10, 3 );
 
             /* Display updated cart items meta data in orders, emails, admin orders... */
-            add_action('woocommerce_add_order_item_meta', array(__CLASS__, 'save_in_order_item_meta'), 10, 3);
+            add_action('woocommerce_add_order_item_meta', array(__CLASS__, 'tbyb_save_in_order_item_meta'), 10, 3);
 
             /* Add to cart on user login */
-            add_action('wp', array(__CLASS__, 'add_to_cart'));
+            add_action('wp', array(__CLASS__, 'tbyb_add_to_cart'));
 
             /* Delete from prepared items table on order submit */
-            add_action('save_post_shop_order', array(__CLASS__, 'delete_from_prepared_items_table'));
+            add_action('save_post_shop_order', array(__CLASS__, 'tbyb_delete_from_prepared_items_table'));
 
             /* Override Woocommerce Quantity Field template */
-            add_filter('woocommerce_locate_template', array(__CLASS__, 'override_quantity_field_template'), 10, 3 );
+            add_filter('woocommerce_locate_template', array(__CLASS__, 'tbyb_override_quantity_field_template'), 10, 3 );
 
-            /* Prevent unauthenticated users to visit WooCommerce pages */
-            add_filter('template_redirect', array(__CLASS__, 'redirect_users_not_logged_in'));
+            /* Redirect users */
+            add_filter('template_redirect', array(__CLASS__, 'tbyb_redirect_users'));
 
         }
 
@@ -75,7 +75,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Load class scripts
          * */
-        public static function load_scripts()
+        public static function tbyb_load_scripts()
         {
             /* CSS */
             wp_enqueue_style('tbyb-public-css', plugins_url('/css/tbyb-public.css', __FILE__));
@@ -93,7 +93,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
          * Render form in footer, outside of WP Cart main form, to prevent form nesting
          * This form's fields are located in "Cart Item Remove" section, and they are connected with this form with "form" property - https://www.w3schools.com/tags/att_form.asp
          * */
-        public static function render_return_reasons_form()
+        public static function tbyb_render_return_reasons_form()
         {
 
             if (is_page('cart') || is_cart()) {
@@ -110,7 +110,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Return reasons buttons HTML and behavior
          * */
-        public static function display_return_reasons_select_box($cart_item_key)
+        public static function tbyb_display_return_reasons_select_box($cart_item_key)
         {
             /* Create unique input "name" for each cart item out of item "key" */
             $full_string = $cart_item_key;
@@ -192,7 +192,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Catch return reason sent by AJAX and save it to php session variable
          * */
-        public static function select_return_reason()
+        public static function tbyb_select_return_reason()
         {
 
             $i = 0;
@@ -227,7 +227,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Update cart items data
          * */
-        public static function update_cart_items_data($item, $cart_item, $key)
+        public static function tbyb_update_cart_items_data($item, $cart_item, $key)
         {
             if (isset($_SESSION[$key])) {
                 $item['return_data']['label'] = "<span class='tbyb-returned'>RETURNED</span> - Reason";
@@ -242,7 +242,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Display items custom fields label and value in cart and checkout pages
          * */
-        public static function display_updated_cart_items_data($cart_data, $cart_item)
+        public static function tbyb_display_updated_cart_items_data($cart_data, $cart_item)
         {
             $custom_items = array();
 
@@ -266,7 +266,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Set returned items price to 0 on cart page
          * */
-        public static function add_custom_price($cart_obj)
+        public static function tbyb_add_custom_price($cart_obj)
         {
 
             /* This is necessary for WC 3.0+ */
@@ -293,7 +293,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Set returned items price to 0 in mini cart
          * */
-        public static function add_custom_price_mini_cart( $price, $cart_item, $cart_item_key ) {
+        public static function tbyb_add_custom_price_mini_cart( $price, $cart_item, $cart_item_key ) {
             $returned_item_price = $cart_item['data']->get_price();
 
             if (isset($cart_item['return_data']['value'])
@@ -310,7 +310,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Save item custom fields label and value as order item meta data
          * */
-        public static function save_in_order_item_meta($item_id, $values, $cart_item_key)
+        public static function tbyb_save_in_order_item_meta($item_id, $values, $cart_item_key)
         {
             if (isset($values['return_data']) && ($values['return_data']['value'] !== 'Keep')) {
                 wc_add_order_item_meta($item_id, $values['return_data']['label'], $values['return_data']['value']);
@@ -324,7 +324,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Add items to customer's cart on customer's login
          */
-        public static function add_to_cart()
+        public static function tbyb_add_to_cart()
         {
             if ( ! is_admin() ) {
 
@@ -355,7 +355,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Delete from prepared items table on order submit
          * */
-        public static function delete_from_prepared_items_table() {
+        public static function tbyb_delete_from_prepared_items_table() {
 
             global $wpdb;
 
@@ -373,7 +373,7 @@ if ( !class_exists( 'TBYB_public' ) ) {
         /*
          * Override Woocommerce Quantity Input template part on Cart page
          * */
-        public static function override_quantity_field_template($template, $template_name, $template_path) {
+        public static function tbyb_override_quantity_field_template($template, $template_name, $template_path) {
 
             $plugin_path  = untrailingslashit( plugin_dir_path( __DIR__ ) )  . '/templates/woocommerce/';
 
@@ -388,9 +388,10 @@ if ( !class_exists( 'TBYB_public' ) ) {
 
 
         /*
-         * Redirect non logged-in users to login page when they try to access WooCommerce pages
+         * Redirect unauthenticated users to login page when they try to access WooCommerce pages
+         * and redirect authenticated users to Cart page (prevent them from visiting shop and other WooCommerce pages, except Cart page)
          * */
-        public static function redirect_users_not_logged_in() {
+        public static function tbyb_redirect_users() {
 
 
             if ( ! is_user_logged_in() ) {

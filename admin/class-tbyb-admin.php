@@ -17,7 +17,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
 
 
 
-        public static function on_load()
+        public static function tbyb_on_load()
         {
             add_action('plugins_loaded', array(__CLASS__, 'init'));
         }
@@ -27,28 +27,28 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         public static function init()
         {
             /* Load scripts */
-            add_action('admin_enqueue_scripts', array(__CLASS__, 'load_scripts'));
+            add_action('admin_enqueue_scripts', array(__CLASS__, 'tbyb_load_scripts'));
 
             /* Display plugin meta box */
-            add_action('add_meta_boxes', array(__CLASS__, 'add_tbyb_meta_box'));
+            add_action('add_meta_boxes', array(__CLASS__, 'tbyb_add_meta_box'));
 
             /* Render actual form outside the main form (in footer), to prevent form nesting */
-            add_filter('admin_footer', array(__CLASS__, 'render_prepare_product_form'));
+            add_filter('admin_footer', array(__CLASS__, 'tbyb_render_prepare_product_form'));
 
             /* AJAX suggest users */
-            add_action('wp_ajax_get_listing_names', array(__CLASS__, 'suggest_users'));
+            add_action('wp_ajax_get_listing_names', array(__CLASS__, 'tbyb_suggest_users'));
 
             /* Add product to database table from which items are added to cart on user login */
-            add_action('wp_ajax_prepare_product', array(__CLASS__, 'prepare_for_cart'));
+            add_action('wp_ajax_prepare_product', array(__CLASS__, 'tbyb_prepare_for_cart'));
 
             /* TBYB Overview admin page */
             add_action('admin_menu', array(__CLASS__, 'tbyb_overview_page'));
 
             /* AJAX delete item from TBYB Overview page */
-            add_action('wp_ajax_delete_item', array(__CLASS__, 'delete_single_item'));
+            add_action('wp_ajax_delete_item', array(__CLASS__, 'tbyb_delete_single_item'));
 
             /* AJAX clear all items from TBYB Overview page for selected user */
-            add_action('wp_ajax_clear_user_items', array(__CLASS__, 'delete_all_item_for_user'));
+            add_action('wp_ajax_clear_user_items', array(__CLASS__, 'tbyb_delete_all_item_for_user'));
 
         }
 
@@ -57,7 +57,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         /*
          * Load class scripts
          */
-        public static function load_scripts()
+        public static function tbyb_load_scripts()
         {
             /* CSS */
             wp_enqueue_style('autocomplete-css', plugins_url('/vendor/jquery-autocomplete/css/jquery.auto-complete.css', __FILE__));
@@ -78,7 +78,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
          * Render forms in footer, outside of WP admin main form, to prevent form nesting
          * These forms fields are connected with their forms with "form" property - https://www.w3schools.com/tags/att_form.asp
          * */
-        public static function render_prepare_product_form()
+        public static function tbyb_render_prepare_product_form()
         {
             $current_screen = get_current_screen();
 
@@ -92,7 +92,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         /*
          * Add TBYB meta box
          * */
-        public static function add_tbyb_meta_box()
+        public static function tbyb_add_meta_box()
         {
             add_meta_box(
                 'tbyb_meta_box',
@@ -168,7 +168,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         /*
          * AJAX Suggest users after admin start typing customer's name
          * */
-        public static function suggest_users()
+        public static function tbyb_suggest_users()
         {
             global $wpdb;
 
@@ -195,7 +195,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         /*
          * AJAX Add items to database table so they are ready to be added to cart when user logs in
          * */
-        public static function prepare_for_cart()
+        public static function tbyb_prepare_for_cart()
         {
 
             global $wpdb;
@@ -429,7 +429,7 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         /*
          * Delete from TBYB Overview page
          * */
-        public static function delete_prepared($table_column, $post_value) {
+        public static function tbyb_delete_prepared($table_column, $post_value) {
 
             global $wpdb;
 
@@ -444,8 +444,8 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         /*
         * Delete single item from TBYB Overview page
         * */
-        public static function delete_single_item() {
-            self::delete_prepared('id', $_POST['item']);
+        public static function tbyb_delete_single_item() {
+            self::tbyb_delete_prepared('id', $_POST['item']);
         }
 
 
@@ -453,8 +453,8 @@ if ( !class_exists( 'TBYB_admin' ) ) {
         /*
         * Delete all items per user from TBYB Overview page
         * */
-        public static function delete_all_item_for_user() {
-            self::delete_prepared('user_id', $_POST['user_id']);
+        public static function tbyb_delete_all_item_for_user() {
+            self::tbyb_delete_prepared('user_id', $_POST['user_id']);
         }
 
     }

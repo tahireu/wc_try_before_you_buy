@@ -41,8 +41,8 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
      * Current plugin version - https://semver.org
      * This should be updated as new versions are released
      * */
-    if( !defined( 'WC_TRY_BEFORE_YOU_BUY_VERSION' ) ) {
-        define( 'WC_TRY_BEFORE_YOU_BUY_VERSION', '1.0.0' );
+    if( !defined( 'TBYB_VERSION' ) ) {
+        define( 'TBYB_VERSION', '1.0.0' );
     }
 
 
@@ -50,11 +50,11 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
     /*
      * Create database table on plugin activation
      * */
-    function create_table(){
-        TBYB_activator::create_table();
+    function tbyb_create_table(){
+        TBYB_activator::tbyb_create_table();
     }
 
-    register_activation_hook( __FILE__, 'create_table' );
+    register_activation_hook( __FILE__, 'tbyb_create_table' );
 
 
 
@@ -66,11 +66,11 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 
     if ( is_admin() ) {
         require plugin_dir_path(__FILE__) . 'admin/class-tbyb-admin.php';
-        TBYB_admin::on_load();
+        TBYB_admin::tbyb_on_load();
     }
 
     require plugin_dir_path(__FILE__) . 'public/class-tbyb-public.php';
-    TBYB_public::on_load();
+    TBYB_public::tbyb_on_load();
 
 
 } else {
@@ -78,6 +78,6 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
     /*
      * Abort and display info message
      * */
-    TBYB_activator::abort();
+    TBYB_activator::tbyb_abort();
 
 }

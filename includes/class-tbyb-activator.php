@@ -19,7 +19,7 @@ if ( !class_exists( 'TBYB_activator' ) ) {
         /*
          * Create database table on plugin activation
          * */
-        public static function create_table() {
+        public static function tbyb_create_table() {
 
             global $wpdb;
             $table_name = $wpdb->prefix . 'tbyb_prepared_items';
@@ -47,10 +47,10 @@ if ( !class_exists( 'TBYB_activator' ) ) {
         /*
          * If WooCommerce is not installed and activated abort everything and display error message
          * */
-        public static function abort()
+        public static function tbyb_abort()
         {
             deactivate_plugins('/wc-try-before-you-buy/wc-try-before-you-buy.php');
-            add_action('admin_notices', array(__CLASS__, 'display_admin_notice_error'));
+            add_action('admin_notices', array(__CLASS__, 'tbyb_display_admin_notice_error'));
         }
 
 
@@ -58,7 +58,7 @@ if ( !class_exists( 'TBYB_activator' ) ) {
         /*
          * Display our error admin notice if WooCommerce is not installed and active
          */
-        public static function display_admin_notice_error()
+        public static function tbyb_display_admin_notice_error()
         {
             ?>
             <!-- hide the 'Plugin Activated' default message -->
