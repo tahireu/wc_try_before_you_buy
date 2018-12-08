@@ -2,8 +2,8 @@
 Contributors: tahireu
 Tags: woocommerce, webshop, shop, e-shop, web-shop, extension, try-before-you-buy
 Requires at least: 3.1.0
-Tested up to: 4.9.8
-Stable tag: 1.0.0
+Tested up to: 5.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,21 +46,40 @@ Keep in mind this and MVP version of this software, supporting only basic functi
 
 == Screenshots ==
 
-1. Admin side - WC Try Before You Buy Admin meta box on the bottom of each WooCommerce Product page in WP admin area.
-2. Admin side - WC Try Before You Buy Overview page.
-3. Customer side - Cart page with options to keep or return product, and to give feedback about return reason.
-4. Customer side - Return reasons info will be displayed in Cart, Checkout, Email and Order complete pages.
-5. Admin side - Return reasons will be visible to admin in 'Orders > Order' page.
+1. Admin side - WC Try Before You Buy Admin meta box on the bottom of each WooCommerce Product page in WP admin area
+2. Admin side - WC Try Before You Buy Overview page
+3. Customer side - Cart page with options to keep or return product, and to give feedback about return reason
+4. Customer side - Return reasons info will be displayed in Cart, Checkout, Email and Order complete pages
+5. Admin side - Return reasons will be visible to admin in 'Orders > Order' page
+
+== Changelog ==
+
+= 1.0.1 =
+* Removed unnecessary comments
+* Fixed typos
+* Updated info messages in TBYB meta box to be more accurate, understandable and self-explainable
+* Updated info messages behavior in TBYB meta box to be more logical
+* Update and improve howto explanations on TBYB Overview page and in TBYB Meta Box
+* Updated readme.txt description, stable tag, tested up to, known issues and plans for the future.
+* Update screenshots relevant to these changes
+
+== Upgrade Notice ==
+
+= 1.0.1 =
+Main advantages of 1.0.1 are better error handling and improved info messages behavior and explanations when submitting data in TBYB meta box.
+Also, this patch will improve howto explanations on both 'Product > TBYB meta box' and 'TBYB Overview' pages.
 
 == Known Issues ==
 
-* Plugin is not compatible with 'Enable stock management at product level' WooCommerce option
-* Cart page layout may vary depending on which theme is used
+* Plugin is not compatible with 'Stock management at product level' WooCommerce option
+* Plugin is not compatible with 'Grouped' product type
+* 'Delete' and 'Clear All' buttons on Overview page are not working in responsive/mobile mode in Firefox due to Firefox bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1273997
 
 == Plans For The Future ==
 
-* Make it quantity/stock/inventory compatible
-* Create pagination and search on WC Try Before You Buy Overview page
+* Make it compatible with 'Stock management at product level' WooCommerce option
+* Make it compatible with 'Grouped' products
+* Add pagination and search field to WC Try Before You Buy Overview page
 * Add languages support
 * Add some kind of multi-step form questionnaire plugin to be installed along with this plugin
 * Make it to work even if AJAX fail
