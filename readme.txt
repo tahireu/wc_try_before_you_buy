@@ -59,9 +59,9 @@ Keep in mind this and MVP version of this software, supporting only basic functi
 * Fixed typos
 * Updated info messages in TBYB meta box to be more accurate, understandable and self-explainable
 * Updated info messages behavior in TBYB meta box to be more logical
-* Update and improve howto explanations on TBYB Overview page and in TBYB Meta Box
+* Updated and improved howto explanations on TBYB Overview page and in TBYB Meta Box
 * Updated readme.txt description, stable tag, tested up to, known issues and plans for the future.
-* Update screenshots relevant to these changes
+* Updated screenshots relevant to these changes
 
 == Upgrade Notice ==
 
