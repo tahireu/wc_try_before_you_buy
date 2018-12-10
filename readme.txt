@@ -7,22 +7,24 @@ Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WooCommerce support for "Try Before You Buy" type of online stores - Prepare cart content for your customers from admin side and allow them to choose whether they will keep or return the product.
+Fill your customer's cart with products you'll send them by mail, and allow them to choose whether they will keep or return the product, and to leave you feedback about return reason.
 
 == Description ==
 
+This is an initial, MVP version of WooCommerce extension which will give you functionalities needed to simulate 'try before you buy' type of online store on your WordPress/WooCommerce installation.
+It will allow you, as admin, to fill your customer's cart with products you'll send them by mail, and allow them to choose whether they will keep or return the product, and to leave you feedback about return reason.
+This plugin DOES NOT cover other functionalities common for 'try before you buy' online stores that can already be achieved with other existing plugins, such as surveys or cart item exchange option.
+
 How 'Try Before You Buy' online stores works: People tells you few words about them, you (or your stylists) choose products that will fit them best, you send them those products, and they choose if they will keep them or not.
 For more info, google out 'Try Before You Buy online stores'.
-This plugin will extend your WooCommerce web shop to a "Try Before You Buy" type of online store.
-It will:
+
+This plugin will:
 * Hide a shop page for all users (prevent users from adding products to the cart by themselves)
 * Hide all WooCommerce pages for unregistered users
 * Allow you, as admin, to fill customers carts with items you'll send them via mail
-* Allow your customers to choose between 'keep' and 'return' product, which will automatically correct the price for them
+* Allow your customers to choose between 'keep' and 'return' product, which will automatically correct the price in their cart
 * Allow your customers to tell you what was the 'return reason' (it will be displayed in admin orders pages)
-* Overview of items prepared to be added to customer's cart - possibility to see the status of prepared items pre user and delete items added by mistake
-
-Keep in mind this and MVP version of this software, supporting only basic functionality. If you are interested about some extended or custom functionality, please contact me at https://github.com/tahireu or tahiri.damir[at]gmail.com
+* Give you an overview of all items prepared to be added to customer's carts - possibility to see the status of prepared items pre user and delete items added by mistake
 
 == Installation ==
 
@@ -33,7 +35,7 @@ Keep in mind this and MVP version of this software, supporting only basic functi
 3. When you find it, click 'install', and after that, click 'activate'
 4. On each WooCommerce Product page you'll find WC Try Before You Buy meta box which will allow you to fill customers carts with items you'll send them via mail
 5. On 'WooCommerce > WC Try Before You Buy Overview' page, you will be able to see the status of items prepared to be added to customer's cart and delete items added by mistake
-6. On 'Cart' page, your customers will be able to choose between 'keep' and 'return' product, and to give information about eventual 'return reason'
+6. On 'Cart' page, your customers will be able to choose between 'keep' and 'return' product, and to leave information about eventual 'return reason'
 
 = From WordPress.org =
 
@@ -42,7 +44,7 @@ Keep in mind this and MVP version of this software, supporting only basic functi
 3. When you upload it, click 'install', and after that, click 'activate'
 4. On each WooCommerce Product page you'll find WC Try Before You Buy meta box which will allow you to fill customers carts with items you'll send them via mail
 5. On 'WooCommerce > WC Try Before You Buy Overview' page, you will be able to see the status of items prepared to be added to customer's cart and delete items added by mistake
-6. On 'Cart' page, your customers will be able to choose between 'keep' and 'return' product, and to give information about eventual 'return reason'
+6. On 'Cart' page, your customers will be able to choose between 'keep' and 'return' product, and to leave information about eventual 'return reason'
 
 == Screenshots ==
 

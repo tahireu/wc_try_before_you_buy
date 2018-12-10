@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     WC Try Before You Buy
  * Plugin URI:      https://github.com/tahireu/wc_try_before_you_buy
- * Description:     WooCommerce support for "Try Before You Buy" type of web shops - Prepare cart content for your customers from admin side and allow them to choose whether they will keep or return the product.
+ * Description:     Fill your customer's cart with products you'll send them by mail, and allow them to choose whether they will keep or return the product, and to leave you feedback about eventual return reason.
  * Version:         1.0.1
  * Author:          Tahireu
  * Author URI:      https://github.com/tahireu/
