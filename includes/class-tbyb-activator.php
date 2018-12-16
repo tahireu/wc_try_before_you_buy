@@ -18,7 +18,8 @@ class TBYB_activator
     /*
      * Create database table on plugin activation
      * */
-    public static function tbyb_create_table() {
+    public static function tbyb_create_table()
+    {
 
         global $wpdb;
         $table_name = $wpdb->prefix . 'tbyb_prepared_items';

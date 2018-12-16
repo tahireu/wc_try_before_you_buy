@@ -22,11 +22,16 @@ function tbyb_prepare($data)
 function tbyb_check_required_fields($required_array)
 {
     $error_fields = array();
-    foreach ($required_array as $fieldname) {
-        if (!isset($_POST[$fieldname]) || (empty($_POST[$fieldname]))) {
-            $error_fields[] = $fieldname;
+
+    foreach ($required_array as $field_name) {
+
+        $field_name_value = sanitize_text_field(tbyb_prepare($_POST[$field_name]));
+
+        if (!isset($field_name_value) || (empty($field_name_value))) {
+            $error_fields[] = $field_name;
         }
     }
+
     return $error_fields;
 }
 
@@ -34,12 +39,12 @@ function tbyb_check_required_fields($required_array)
 /*
  * Make sure content in fields is not too long
  * */
-function tbyb_check_field_length($fieldsMaxLengths)
+function tbyb_check_field_length($fields_max_lengths)
 {
     $error_fields = array();
-    foreach ($fieldsMaxLengths as $fieldname => $maxlength) {
-        if (strlen(tbyb_prepare($_POST[$fieldname])) > $maxlength) {
-            $error_fields[] = $fieldname;
+    foreach ($fields_max_lengths as $field_name => $max_length) {
+        if (strlen(sanitize_text_field(tbyb_prepare($_POST[$field_name]))) > $max_length) {
+            $error_fields[] = $field_name;
         }
     }
     return $error_fields;

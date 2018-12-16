@@ -203,7 +203,7 @@ class TBYB_public
 
         foreach ($cart_items as $cart_item_key => $cart_item) {
 
-            array_push($return_reasons, tbyb_prepare($_POST[$cart_item_key]));
+            array_push($return_reasons, sanitize_text_field(tbyb_prepare($_POST[$cart_item_key])));
 
             foreach ($return_reasons as $reason_key => $return_reason) {
                 if ($i == $reason_key) {
@@ -229,7 +229,7 @@ class TBYB_public
     public static function tbyb_update_cart_items_data($item, $cart_item, $key)
     {
         if (isset($_SESSION[$key])) {
-            $item['return_data']['label'] = "<span class='tbyb-returned'>RETURNED</span> - Reason";
+            $item['return_data']['label'] = "<span class='tbyb-returned'>" . __('RETURNED', TBYB_TEXT_DOMAIN) . "</span>" . __(' - Reason', TBYB_TEXT_DOMAIN) . "";
             $item['return_data']['value'] = $_SESSION[$key];
             unset($_SESSION[$key]);
         }
@@ -335,14 +335,16 @@ class TBYB_public
                 return;
             }
 
-            $query = "SELECT * FROM {$wpdb->prefix}tbyb_prepared_items WHERE user_id = '$current_user->id' AND imported_to_cart = '0'";
+            $query = "SELECT * FROM {$wpdb->prefix}tbyb_prepared_items WHERE user_id = %s AND imported_to_cart = %s";
+            $query = $wpdb->prepare($query, $current_user->id, 0);
             $results = $wpdb->get_results($query);
 
 
             if (isset($results)) {
                 foreach ($results as $result) {
-                    $woocommerce->cart->add_to_cart($result->product_id, $result->quantity, $result->variation_id);
-                    $query = "UPDATE {$wpdb->prefix}tbyb_prepared_items SET imported_to_cart = '1' WHERE product_id = '$result->product_id' AND user_id = '$current_user->id'";
+                    $woocommerce->cart->add_to_cart(intval($result->product_id), intval($result->quantity), intval($result->variation_id));
+                    $query = "UPDATE {$wpdb->prefix}tbyb_prepared_items SET imported_to_cart = %s WHERE product_id = %s AND user_id = %s";
+                    $query = $wpdb->prepare($query, 1, intval($result->product_id), $current_user->id);
                     $wpdb->get_results($query);
                 }
             }
@@ -354,7 +356,8 @@ class TBYB_public
     /*
      * Delete from prepared items table on order submit
      * */
-    public static function tbyb_delete_from_prepared_items_table() {
+    public static function tbyb_delete_from_prepared_items_table()
+    {
 
         global $wpdb;
 
@@ -363,7 +366,8 @@ class TBYB_public
             return;
         }
 
-        $query = "DELETE FROM {$wpdb->prefix}tbyb_prepared_items WHERE imported_to_cart = '1' AND user_id = '$current_user->id'";
+        $query = "DELETE FROM {$wpdb->prefix}tbyb_prepared_items WHERE imported_to_cart = %s AND user_id = %s";
+        $query = $wpdb->prepare($query, 1, intval($current_user->id));
         $wpdb->get_results($query);
     }
 
@@ -372,7 +376,8 @@ class TBYB_public
     /*
      * Override Woocommerce Quantity Input template part on Cart page
      * */
-    public static function tbyb_override_quantity_field_template($template, $template_name, $template_path) {
+    public static function tbyb_override_quantity_field_template($template, $template_name, $template_path)
+    {
 
         $plugin_path  = untrailingslashit( plugin_dir_path( __DIR__ ) )  . '/templates/woocommerce/';
 
@@ -390,7 +395,8 @@ class TBYB_public
      * Redirect unauthenticated users to login page when they try to access WooCommerce pages
      * and redirect authenticated users to Cart page (prevent them from visiting shop and other WooCommerce pages, except Cart page)
      * */
-    public static function tbyb_redirect_users() {
+    public static function tbyb_redirect_users()
+    {
 
 
         if ( ! is_user_logged_in() ) {
