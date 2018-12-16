@@ -12,7 +12,9 @@ Fill your customer's cart with products you'll send them by mail, and allow them
 == Description ==
 
 This is an initial, MVP version of WooCommerce extension which will give you functionalities needed to simulate 'try before you buy' type of online store on your WordPress/WooCommerce installation.
+
 It will allow you, as admin, to fill your customer's cart with products you'll send them by mail, and allow them to choose whether they will keep or return the product, and to leave you feedback about return reason.
+
 This plugin DOES NOT cover other functionalities common for 'try before you buy' online stores that can already be achieved with other existing plugins, such as surveys or cart item exchange option.
 
 How 'Try Before You Buy' online stores works: People tells you few words about them, you (or your stylists) choose products that will fit them best, you send them those products, and they choose if they will keep them or not.
